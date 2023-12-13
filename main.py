@@ -62,3 +62,14 @@ async def update_user(user: UpdateUser, user_id: str):
             return user_data
 
     raise HTTPException(status_code=404, detail="Data not found")
+
+
+@app.delete('/users/{user_id}')
+async def delete_user(user_id: str):
+    for user_data in datas:
+        if user_data['id'] == user_id:
+            datas.remove(user_data)
+            return {"message": "Data deleted successfully"}
+    
+    raise HTTPException(status_code=404, detail="Data not found")
+

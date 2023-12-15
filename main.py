@@ -18,10 +18,11 @@ class UpdateUser(BaseModel):
     email: str | None = None
     age: int | None = None
 
-@app.get("/")
+@app.get('/')
 async def root():
-    return {"message": "Hello World"}
+    return {'message': 'Hello World!'}
 
+# menambahkan user
 @app.post('/users')
 async def create_users(user: CreateUser):
     new_user_data = {
@@ -34,11 +35,12 @@ async def create_users(user: CreateUser):
     datas.append(new_user_data)
     return new_user_data
   
-
+# mendapatkan semua data user
 @app.get('/users')
 async def get_users():
     return datas
 
+# mendapatkan data user by id
 @app.get('/users/{user_id}')
 async def user_by_id(user_id: str):
     for user_data in datas:
@@ -46,6 +48,7 @@ async def user_by_id(user_id: str):
             return user_data
     raise HTTPException(status_code=404, detail="Data not found")
 
+# mengupdate data user by id
 @app.patch('/users/{user_id}')
 async def update_user(user: UpdateUser, user_id: str):
     for user_data in datas:
@@ -63,7 +66,7 @@ async def update_user(user: UpdateUser, user_id: str):
 
     raise HTTPException(status_code=404, detail="Data not found")
 
-
+# menghapus data user by id
 @app.delete('/users/{user_id}')
 async def delete_user(user_id: str):
     for user_data in datas:
